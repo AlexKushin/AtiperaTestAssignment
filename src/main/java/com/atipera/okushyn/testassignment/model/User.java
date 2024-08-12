@@ -13,4 +13,5 @@ public class User {
     @NotNull
     @Size(max = 255)
     private String login;
+    private int id;
 }
