@@ -1,5 +1,6 @@
 package com.atipera.okushyn.testassignment.service;
 
+import com.atipera.okushyn.testassignment.exceptions.ExceededRateLimitException;
 import com.atipera.okushyn.testassignment.exceptions.ResourceNotFoundException;
 import com.atipera.okushyn.testassignment.model.Repository;
 import com.atipera.okushyn.testassignment.model.User;
@@ -61,6 +62,10 @@ public class GitHubService {
             if (ex.getStatusCode().equals(HttpStatusCode.valueOf(404))) {
                 log.warn("GitHub user with username {} not found", username);
                 throw new ResourceNotFoundException("User with name " + username + " not found");
+            }
+            if (ex.getStatusCode().equals(HttpStatusCode.valueOf(403))) {
+                log.warn("GitHub API rate limit exceeded");
+                throw new ExceededRateLimitException("GitHub Api calls Rate limit exceeded");
             }
             throw ex;
         }
