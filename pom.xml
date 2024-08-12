@@ -73,7 +73,7 @@
                 <configuration>
 
                     <mainClass>
-                        com.atipera.assignment.test.okushyn.test_assignment_atipera.TestAssignmentAtiperaApplicationTests
+                        com.atipera.okushyn.testassignment.AtiperaTestAssignmentApplication
                     </mainClass>
 
                     <excludes>
