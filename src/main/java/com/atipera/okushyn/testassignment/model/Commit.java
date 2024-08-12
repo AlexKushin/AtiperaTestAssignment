@@ -8,5 +8,5 @@ import lombok.*;
 @ToString
 @EqualsAndHashCode
 public class Commit {
-    String sha;
+    private String sha;
 }

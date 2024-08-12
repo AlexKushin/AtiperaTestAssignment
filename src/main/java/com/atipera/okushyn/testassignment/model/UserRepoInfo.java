@@ -10,7 +10,7 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 public class UserRepoInfo {
-    String name;
-    String ownerLogin;
-    Branch[] branches;
+    private String name;
+    private String ownerLogin;
+    private Branch[] branches;
 }

@@ -8,7 +8,7 @@ import lombok.*;
 @ToString
 @EqualsAndHashCode
 public class Repository {
-    String name;
-    boolean fork;
-    Branch[] branches;
+    private String name;
+    private boolean fork;
+    private Branch[] branches;
 }

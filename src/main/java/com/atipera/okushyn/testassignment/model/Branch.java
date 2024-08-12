@@ -8,7 +8,7 @@ import lombok.*;
 @ToString
 @EqualsAndHashCode
 public class Branch {
-    String name;
+    private String name;
 
-    Commit commit;
+    private Commit commit;
 }
