@@ -14,4 +14,5 @@ public class User {
     @Size(max = 255)
     private String login;
     private int id;
+    private String repos_url;
 }

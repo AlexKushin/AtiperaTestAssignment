@@ -11,4 +11,5 @@ public class Repository {
     private String name;
     private boolean fork;
     private Branch[] branches;
+    private String branches_url;
 }
