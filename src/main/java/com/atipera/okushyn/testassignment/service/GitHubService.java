@@ -29,13 +29,6 @@ public class GitHubService {
     @Value("${github.api.getUser}")
     private String getUserUrl;
 
-    @Value("${github.api.getUserRepos}")
-    private String getRepositoriesUrl;
-
-    @Value("${github.api.getRepoBranches}")
-    private String getBranchesUrl;
-
-
     private static final String LINK_HEADER = "link";
 
     private final RestTemplate restTemplate;
@@ -45,8 +38,8 @@ public class GitHubService {
 
 
     @Autowired
-    public GitHubService(RestTemplate restTemplate1) {
-        this.restTemplate = restTemplate1;
+    public GitHubService(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
     }
 
 
@@ -65,9 +58,7 @@ public class GitHubService {
 
 
     public Repository[] getUserReposByLogin(int perPage, int page, User user) {
-        String userLogin = user.getLogin();
-
-        String repositoriesUrl = String.format(getRepositoriesUrl, baseUrl, userLogin);
+        String repositoriesUrl = user.getRepos_url();
         URI uri = UriComponentsBuilder
                 .fromUri(URI.create(repositoriesUrl))
                 .queryParam("per_page", perPage)
@@ -83,8 +74,9 @@ public class GitHubService {
         return new Repository[0];
     }
 
-    public Branch[] getUserRepoBranches(String login, String repoName) {
-        String branchesUrl = String.format(getBranchesUrl, baseUrl, login, repoName);
+
+    public Branch[] getUserRepoBranches(Repository repository) {
+        String branchesUrl = repository.getBranches_url().replace("{/branch}", "");
         ResponseEntity<Branch[]> branchesResponseEntity = restTemplate.getForEntity(branchesUrl, Branch[].class);
         Branch[] branches = branchesResponseEntity.getBody();
         if (branches != null && branches.length > 0) {
@@ -92,7 +84,6 @@ public class GitHubService {
         }
         return new Branch[0];
     }
-
     public List<UserRepoInfo> getNotForkRepoInfoList(Repository[] userRepos, final String login) {
         return Arrays.stream(userRepos)
                 .filter(rep -> !rep.isFork())
@@ -102,7 +93,7 @@ public class GitHubService {
 
     private UserRepoInfo mapToUserRepoInfo(final Repository rep, final String login) {
         String repoName = rep.getName();
-        Branch[] brRes = getUserRepoBranches(login, repoName);
+        Branch[] brRes = getUserRepoBranches(rep);
         return new UserRepoInfo(repoName, login, brRes);
     }
 
