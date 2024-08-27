@@ -33,8 +33,8 @@ public class GitHubController {
         log.info("Fetching non-fork repositories for GitHub user: {}", username);
 
         User user = gitHubService.getGitHubUser(username);
-        String userLogin = user.getLogin();
-        int userId = user.getId();
+        String userLogin = user.login();
+        int userId = user.id();
 
         Repository[] repRes = gitHubService.getUserReposByLogin(perPage, page, user);
         List<UserRepoInfo> notForkRepoInfoList = gitHubService.getNotForkRepoInfoList(repRes, userLogin);
