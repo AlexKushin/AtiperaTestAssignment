@@ -1,10 +1,7 @@
 package com.atipera.okushyn.testassignment.service;
 
 import com.atipera.okushyn.testassignment.exceptions.ResourceNotFoundException;
-import com.atipera.okushyn.testassignment.model.Branch;
-import com.atipera.okushyn.testassignment.model.Repository;
-import com.atipera.okushyn.testassignment.model.User;
-import com.atipera.okushyn.testassignment.model.UserRepoInfo;
+import com.atipera.okushyn.testassignment.model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,6 +24,7 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class GitHubServiceTest {
+    private static final String LOGIN = "octocat";
 
     @Mock
     private RestTemplate restTemplate;
@@ -34,25 +32,34 @@ public class GitHubServiceTest {
     @InjectMocks
     private GitHubService gitHubService;
 
+    User mockUser;
+
+    Repository mockRepo;
+
+    Branch[] mockBranches;
+
     @BeforeEach
     public void setUp() {
         ReflectionTestUtils.setField(gitHubService, "baseUrl", "https://api.github.com");
         ReflectionTestUtils.setField(gitHubService, "getUserUrl", "/users/%s");
+        mockUser = new User("octocat", 1, "https://api.github.com/users/octocat/repos");
+        mockBranches = new Branch[1];
+        mockBranches[0] = new Branch("first", new Commit("skdfhsjd"));
+        mockRepo = new Repository("Hello-World", false, mockBranches, "https://api.github.com/repos/octocat/Hello-World/branches{/branch}");
+
     }
 
     @Test
     public void testGetGitHubUser_Success() {
-        String username = "octocat";
-        User mockUser = new User();
-        mockUser.setLogin(username);
+
 
         when(restTemplate.getForEntity(anyString(), eq(User.class)))
                 .thenReturn(new ResponseEntity<>(mockUser, HttpStatus.OK));
 
-        User result = gitHubService.getGitHubUser(username);
+        User result = gitHubService.getGitHubUser(LOGIN);
 
         assertNotNull(result);
-        assertEquals(username, result.getLogin());
+        assertEquals(LOGIN, result.login());
     }
 
     @Test
@@ -70,11 +77,10 @@ public class GitHubServiceTest {
 
     @Test
     public void testGetUserReposByLogin_Success() {
-        User mockUser = new User();
-        mockUser.setRepos_url("https://api.github.com/users/octocat/repos");
+
 
         Repository[] mockRepos = new Repository[1];
-        mockRepos[0] = new Repository();
+        mockRepos[0] = mockRepo;
 
         URI uri = URI.create("https://api.github.com/users/octocat/repos?per_page=10&page=1");
         when(restTemplate.getForEntity(uri, Repository[].class))
@@ -88,11 +94,6 @@ public class GitHubServiceTest {
 
     @Test
     public void testGetUserRepoBranches_Success() {
-        Repository mockRepo = new Repository();
-        mockRepo.setBranches_url("https://api.github.com/repos/octocat/Hello-World/branches{/branch}");
-
-        Branch[] mockBranches = new Branch[1];
-        mockBranches[0] = new Branch();
 
         String branchesUrl = "https://api.github.com/repos/octocat/Hello-World/branches";
         when(restTemplate.getForEntity(branchesUrl, Branch[].class))
@@ -106,42 +107,26 @@ public class GitHubServiceTest {
 
     @Test
     public void testGetNotForkRepoInfoList() {
-        String login = "octocat";
-        Repository mockRepo = new Repository();
-
-        mockRepo.setFork(false);
-        mockRepo.setName("Hello-World");
-        mockRepo.setBranches_url("https://api.github.com/repos/octocat/Hello-World/branches{/branch}");
-        Branch[] mockBranches = new Branch[1];
-        mockBranches[0] = new Branch();
 
         when(restTemplate.getForEntity(anyString(), eq(Branch[].class)))
                 .thenReturn(new ResponseEntity<>(mockBranches, HttpStatus.OK));
 
-        List<UserRepoInfo> result = gitHubService.getNotForkRepoInfoList(new Repository[]{mockRepo}, login);
+        List<UserRepoInfo> result = gitHubService.getNotForkRepoInfoList(new Repository[]{mockRepo}, LOGIN);
 
         assertNotNull(result);
         assertEquals(1, result.size());
-        assertEquals("Hello-World", result.getFirst().getName());
+        assertEquals("Hello-World", result.getFirst().name());
     }
 
     @Test
     public void testMapToUserRepoInfo() {
-        String login = "octocat";
-        Repository mockRepo = new Repository();
-        mockRepo.setName("Hello-World");
-        mockRepo.setBranches_url("https://api.github.com/repos/octocat/Hello-World/branches{/branch}");
-
-        Branch[] mockBranches = new Branch[1];
-        mockBranches[0] = new Branch();
-
         when(restTemplate.getForEntity(anyString(), eq(Branch[].class)))
                 .thenReturn(new ResponseEntity<>(mockBranches, HttpStatus.OK));
 
-        UserRepoInfo result = gitHubService.getNotForkRepoInfoList(new Repository[]{mockRepo}, login).getFirst();
+        UserRepoInfo result = gitHubService.getNotForkRepoInfoList(new Repository[]{mockRepo}, LOGIN).getFirst();
 
         assertNotNull(result);
-        assertEquals("Hello-World", result.getName());
-        assertEquals(1, result.getBranches().length);
+        assertEquals("Hello-World", result.name());
+        assertEquals(1, result.branches().length);
     }
 }

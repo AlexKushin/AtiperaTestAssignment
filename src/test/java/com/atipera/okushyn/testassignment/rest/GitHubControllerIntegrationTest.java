@@ -36,17 +36,17 @@ public class GitHubControllerIntegrationTest {
     @BeforeEach
     public void setUp() {
         // Mock User
-        User mockUser = new User();
-        mockUser.setLogin("octocat");
-        mockUser.setId(1);
+        User mockUser = new User("octocat", 1, "kuahdfksdj");
+       // mockUser.setLogin("octocat");
+       // mockUser.setId(1);
         // Mock Branch[]
         Branch[] branches = new Branch[1];
         branches[0] = new Branch("main", new Commit("dsyttk23j4g3jhg4"));
         // Mock Repository
-        Repository mockRepository = new Repository();
-        mockRepository.setName("Hello-World");
-        mockRepository.setFork(false);
-        mockRepository.setBranches(branches);
+        Repository mockRepository = new Repository("Hello-World",false,branches, "ghgfhgf");
+       // mockRepository.setName("Hello-World");
+        //mockRepository.setFork(false);
+        //mockRepository.setBranches(branches);
 
 
         // Mock UserRepoInfo

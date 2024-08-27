@@ -73,13 +73,13 @@ public class GitHubService {
 
 
     public Repository[] getUserReposByLogin(int perPage, int page, User user) {
-        String repositoriesUrl = user.getRepos_url();
+        String repositoriesUrl = user.repos_url();
         URI uri = UriComponentsBuilder
                 .fromUri(URI.create(repositoriesUrl))
                 .queryParam("per_page", perPage)
                 .queryParam("page", page).build().toUri();
 
-        log.info("Fetching repositories for user: {} with URL: {}", user.getLogin(), uri);
+        log.info("Fetching repositories for user: {} with URL: {}", user.login(), uri);
         ResponseEntity<Repository[]> response = restTemplate.getForEntity(uri, Repository[].class);
         linkHeader = response.getHeaders().getFirst(LINK_HEADER);
         log.debug("Link header: {}", linkHeader);
@@ -88,26 +88,26 @@ public class GitHubService {
 
 
         if (repositories != null && repositories.length > 0) {
-            log.info("Fetched {} repositories for user {}", repositories.length, user.getLogin());
+            log.info("Fetched {} repositories for user {}", repositories.length, user.login());
             return repositories;
         } else {
-            log.warn("No repositories found for user {}", user.getLogin());
+            log.warn("No repositories found for user {}", user.login());
             return new Repository[0];
         }
     }
 
 
     public Branch[] getUserRepoBranches(Repository repository) {
-        String branchesUrl = repository.getBranches_url().replace("{/branch}", "");
-        log.info("Fetching branches for repository: {} with URL: {}", repository.getName(), branchesUrl);
+        String branchesUrl = repository.branches_url().replace("{/branch}", "");
+        log.info("Fetching branches for repository: {} with URL: {}", repository.name(), branchesUrl);
 
         ResponseEntity<Branch[]> branchesResponseEntity = restTemplate.getForEntity(branchesUrl, Branch[].class);
         Branch[] branches = branchesResponseEntity.getBody();
         if (branches != null && branches.length > 0) {
-            log.info("Fetched {} branches for repository {}", branches.length, repository.getName());
+            log.info("Fetched {} branches for repository {}", branches.length, repository.name());
             return branches;
         } else {
-            log.warn("No branches found for repository {}", repository.getName());
+            log.warn("No branches found for repository {}", repository.name());
             return new Branch[0];
         }
     }
@@ -115,7 +115,7 @@ public class GitHubService {
     public List<UserRepoInfo> getNotForkRepoInfoList(Repository[] userRepos, final String login) {
         log.info("Filtering non-fork repositories for user {}", login);
          List<UserRepoInfo> notForkRepos = Arrays.stream(userRepos)
-                .filter(rep -> !rep.isFork())
+                .filter(rep -> !rep.fork())
                 .map(rep -> mapToUserRepoInfo(rep, login))
                 .toList();
         log.debug("Non-fork repositories: {}", notForkRepos);
@@ -123,7 +123,7 @@ public class GitHubService {
     }
 
     private UserRepoInfo mapToUserRepoInfo(final Repository rep, final String login) {
-        String repoName = rep.getName();
+        String repoName = rep.name();
         log.info("Mapping repository {} for user {}", repoName, login);
         Branch[] brRes = getUserRepoBranches(rep);
         log.debug("Mapped repository {} with branches {}", repoName, Arrays.toString(brRes));
