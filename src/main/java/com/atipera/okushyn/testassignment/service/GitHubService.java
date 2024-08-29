@@ -36,7 +36,7 @@ public class GitHubService {
     }
 
 
-    private Repository[] getUserRepos(String username) {
+    public Repository[] getUserRepos(String username) {
 
         String reposUrl = String.format(getUserReposUrl, username);
         return restClient.get()
@@ -45,7 +45,7 @@ public class GitHubService {
                 .body(Repository[].class);
     }
 
-    private Branch[] getRepoBranches(String username, String repoName) {
+    public Branch[] getRepoBranches(String username, String repoName) {
         String reposBranchesUrl = String.format(getUserRepoBranchesUrl, username, repoName);
         return restClient.get()
                 .uri(reposBranchesUrl)

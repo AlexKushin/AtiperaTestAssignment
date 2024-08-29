@@ -1,0 +1,40 @@
+{
+  "id" : "2549a655-f6a6-4c0b-8626-545c56a058d6",
+  "name" : "repos_alexkushin_mycoolcar_branches",
+  "request" : {
+    "url" : "/repos/alexkushin/MyCoolCar/branches",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "[{\"name\":\"CarModelList_exceptions\",\"commit\":{\"sha\":\"212aa4ad99156db508e0fddb13ac382f5a212180\",\"url\":\"https://api.github.com/repos/AlexKushin/MyCoolCar/commits/212aa4ad99156db508e0fddb13ac382f5a212180\"},\"protected\":false},{\"name\":\"adjustment_for_lunching_front_and_back\",\"commit\":{\"sha\":\"146e7eb825939a58b7eef4359eeaf5556e4d8779\",\"url\":\"https://api.github.com/repos/AlexKushin/MyCoolCar/commits/146e7eb825939a58b7eef4359eeaf5556e4d8779\"},\"protected\":false},{\"name\":\"authentication\",\"commit\":{\"sha\":\"7960ecd89ecc44f948f90d1ec178b9a1c804d180\",\"url\":\"https://api.github.com/repos/AlexKushin/MyCoolCar/commits/7960ecd89ecc44f948f90d1ec178b9a1c804d180\"},\"protected\":false},{\"name\":\"car_list_test\",\"commit\":{\"sha\":\"bad5fe5512634818df9be2bfc486d9fef7c4b1da\",\"url\":\"https://api.github.com/repos/AlexKushin/MyCoolCar/commits/bad5fe5512634818df9be2bfc486d9fef7c4b1da\"},\"protected\":false},{\"name\":\"car_models_list\",\"commit\":{\"sha\":\"e73eb09300baab516dbd9ffb7d713944211121cd\",\"url\":\"https://api.github.com/repos/AlexKushin/MyCoolCar/commits/e73eb09300baab516dbd9ffb7d713944211121cd\"},\"protected\":false},{\"name\":\"change_to_unidirectional_userCars\",\"commit\":{\"sha\":\"2c7d264e93a0c3f213cc2d54f5847745c80a6d2a\",\"url\":\"https://api.github.com/repos/AlexKushin/MyCoolCar/commits/2c7d264e93a0c3f213cc2d54f5847745c80a6d2a\"},\"protected\":false},{\"name\":\"development\",\"commit\":{\"sha\":\"a68626b4427ae1a89f0e5d806eb6d65a8c54eadf\",\"url\":\"https://api.github.com/repos/AlexKushin/MyCoolCar/commits/a68626b4427ae1a89f0e5d806eb6d65a8c54eadf\"},\"protected\":false},{\"name\":\"frontend_car_editing\",\"commit\":{\"sha\":\"2c39ba1529815ee37cec655a91752f3625d1d99b\",\"url\":\"https://api.github.com/repos/AlexKushin/MyCoolCar/commits/2c39ba1529815ee37cec655a91752f3625d1d99b\"},\"protected\":false},{\"name\":\"frontend_ngrx\",\"commit\":{\"sha\":\"495fbbbb8359119dd9c76d685ee01186b832ca9e\",\"url\":\"https://api.github.com/repos/AlexKushin/MyCoolCar/commits/495fbbbb8359119dd9c76d685ee01186b832ca9e\"},\"protected\":false},{\"name\":\"local_image_storage\",\"commit\":{\"sha\":\"95478d57c841ed585bbe664ff129b69b526e0840\",\"url\":\"https://api.github.com/repos/AlexKushin/MyCoolCar/commits/95478d57c841ed585bbe664ff129b69b526e0840\"},\"protected\":false},{\"name\":\"logs_improvement\",\"commit\":{\"sha\":\"c46a4cb9c20cfeeedc7d0f3a33f201b997ea23ee\",\"url\":\"https://api.github.com/repos/AlexKushin/MyCoolCar/commits/c46a4cb9c20cfeeedc7d0f3a33f201b997ea23ee\"},\"protected\":false},{\"name\":\"master\",\"commit\":{\"sha\":\"f46b52ede6f5d5cb9a0f5fa3a9bed1d8d14cd420\",\"url\":\"https://api.github.com/repos/AlexKushin/MyCoolCar/commits/f46b52ede6f5d5cb9a0f5fa3a9bed1d8d14cd420\"},\"protected\":false},{\"name\":\"password_reset\",\"commit\":{\"sha\":\"1e1896fc98eac3868402b084d6de978c8b0d19d5\",\"url\":\"https://api.github.com/repos/AlexKushin/MyCoolCar/commits/1e1896fc98eac3868402b084d6de978c8b0d19d5\"},\"protected\":false},{\"name\":\"password_rules\",\"commit\":{\"sha\":\"8d41e67793a61cd0dc7beb31e589550597d26580\",\"url\":\"https://api.github.com/repos/AlexKushin/MyCoolCar/commits/8d41e67793a61cd0dc7beb31e589550597d26580\"},\"protected\":false},{\"name\":\"test\",\"commit\":{\"sha\":\"16a34e466290be48da08c8a87f66b6f04067b628\",\"url\":\"https://api.github.com/repos/AlexKushin/MyCoolCar/commits/16a34e466290be48da08c8a87f66b6f04067b628\"},\"protected\":false}]",
+    "headers" : {
+      "Date" : "Thu, 29 Aug 2024 08:51:45 GMT",
+      "Content-Type" : "application/json; charset=utf-8",
+      "Cache-Control" : "public, max-age=60, s-maxage=60",
+      "Vary" : "Accept,Accept-Encoding, Accept, X-Requested-With",
+      "ETag" : "W/\"3886d0dc8bf9157796721ae02b98b4bb44b3a425916ae45d219626714b811daf\"",
+      "X-GitHub-Media-Type" : "github.v3; format=json",
+      "x-github-api-version-selected" : "2022-11-28",
+      "Access-Control-Expose-Headers" : "ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset",
+      "Access-Control-Allow-Origin" : "*",
+      "Strict-Transport-Security" : "max-age=31536000; includeSubdomains; preload",
+      "X-Frame-Options" : "deny",
+      "X-Content-Type-Options" : "nosniff",
+      "X-XSS-Protection" : "0",
+      "Referrer-Policy" : "origin-when-cross-origin, strict-origin-when-cross-origin",
+      "Content-Security-Policy" : "default-src 'none'",
+      "Server" : "github.com",
+      "X-RateLimit-Limit" : "60",
+      "X-RateLimit-Remaining" : "56",
+      "X-RateLimit-Reset" : "1724924208",
+      "X-RateLimit-Resource" : "core",
+      "X-RateLimit-Used" : "4",
+      "Accept-Ranges" : "bytes",
+      "X-GitHub-Request-Id" : "4751:46C6A:2776915:2802CAC:66D036A1"
+    }
+  },
+  "uuid" : "2549a655-f6a6-4c0b-8626-545c56a058d6",
+  "persistent" : true,
+  "insertionIndex" : 3
+}
