@@ -1,5 +1,5 @@
- <h1 align="center">Atipera Test Assignment</h1>
-  This repository contains the implementation of a REST service that, with a single request, helps find information about a user's public repositories 
+⚡Project Information
+This repository contains the implementation of a REST service that, with a single request, helps find information about a user's public repositories 
 that are not forks. It also provides information about the branches of each repository, including the SHA code of the latest commit.
 
 <h2> ⚡ Project information</h2>
@@ -12,7 +12,7 @@ that are not forks. It also provides information about the branches of each repo
 
 - Java: 21.0.4 LTS
 - Spring Boot: 3.3.2
-- Testing frameworks: JUnit, Mockito
+- Testing frameworks: JUnit, WireMock
 - Maven - build automation and project management:
 
 
@@ -37,7 +37,7 @@ Or build and launch project from the command line:
 
 1. Navigate to the project root and build the entire project using command: ```mvn clean install```
 
-2. Go to the ```target``` folder and launch the application with the command: ```java -jar TestAssignment-0.0.1.jar```
+2. Go to the ```target``` folder and launch the application with the command: ```java -jar TestAssignment-0.0.2.jar```
 
 <br>
 
@@ -94,33 +94,12 @@ http://localhost:8080/api/users/octocat/repos_info?mediaType=xml
 
 <h3>📋 The code follows Best Practices as outlined on the GitHub API page: </h3>
 
-- For interaction with the external GitHub API, RestTemplate is used instead of WebClient:
+- For interaction with the external GitHub API RestClient is used, 
+- For most performing efficiency Virtual Threads has been enabled:
 
 [Avoid concurrent requests](https://docs.github.com/en/rest/using-the-rest-api/best-practices-for-using-the-rest-api?apiVersion=2022-11-28#avoid-concurrent-requests)
 
 
-
-- To request subsequent necessary information and avoid the need to parse or manually input URLs, the service uses URLs provided in the response object:
-
-[Do not manually parse urls](https://docs.github.com/en/rest/using-the-rest-api/best-practices-for-using-the-rest-api?apiVersion=2022-11-28#do-not-manually-parse-urls)
-
-
-- Pagination has been implemented for convenient display of repository lists.
-
-To use pagination, you need to add request parameters to the endpoint: ```"per_page"```(the number of items displayed on one page) and unnecessary request param  ```"page"``` (the page number). 
-
-Example:
-http://localhost:8080/api/users/alexkshin/repos_info?per_page=2&page=1
-
-![pagination](https://github.com/user-attachments/assets/8575bc47-ceef-40a1-b580-9b2535fa9b67)
-
-
-The default value of request param ```per_page``` = 20.
-
-To display links to the ```"first/next/previous/last"``` pages, links from the response header under the ```"link"``` header are used when requesting a user's repositories.
-
-<h4>📣 important note:</h4>
-Pagination works for retreiving all of public user's repositories, which means that number of displayed repository info objects may be less after filtering on fork repositories
 
 
 
