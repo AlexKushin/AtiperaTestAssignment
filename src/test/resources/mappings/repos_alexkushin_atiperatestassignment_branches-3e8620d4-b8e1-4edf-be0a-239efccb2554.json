@@ -1,0 +1,40 @@
+{
+  "id" : "3e8620d4-b8e1-4edf-be0a-239efccb2554",
+  "name" : "repos_alexkushin_atiperatestassignment_branches",
+  "request" : {
+    "url" : "/repos/alexkushin/AtiperaTestAssignment/branches",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "[{\"name\":\"configs\",\"commit\":{\"sha\":\"357ff72c692d29f70c79e9051e89836a42f15781\",\"url\":\"https://api.github.com/repos/AlexKushin/AtiperaTestAssignment/commits/357ff72c692d29f70c79e9051e89836a42f15781\"},\"protected\":false},{\"name\":\"development\",\"commit\":{\"sha\":\"15b174500947a2c2fcc2227fc789814a46ba654c\",\"url\":\"https://api.github.com/repos/AlexKushin/AtiperaTestAssignment/commits/15b174500947a2c2fcc2227fc789814a46ba654c\"},\"protected\":false},{\"name\":\"dtos_fixing\",\"commit\":{\"sha\":\"d82552d26c324edd68493f35a13411ed82ea9ad6\",\"url\":\"https://api.github.com/repos/AlexKushin/AtiperaTestAssignment/commits/d82552d26c324edd68493f35a13411ed82ea9ad6\"},\"protected\":false},{\"name\":\"exceptions\",\"commit\":{\"sha\":\"52b50e532f4d8d78041be9c803dc2b8484437f76\",\"url\":\"https://api.github.com/repos/AlexKushin/AtiperaTestAssignment/commits/52b50e532f4d8d78041be9c803dc2b8484437f76\"},\"protected\":false},{\"name\":\"logs\",\"commit\":{\"sha\":\"f03f015b46beedee82b986bda1bdb4d566c7230f\",\"url\":\"https://api.github.com/repos/AlexKushin/AtiperaTestAssignment/commits/f03f015b46beedee82b986bda1bdb4d566c7230f\"},\"protected\":false},{\"name\":\"main\",\"commit\":{\"sha\":\"e6499a24f288ef7601e8f64cf2308ded1b1adc71\",\"url\":\"https://api.github.com/repos/AlexKushin/AtiperaTestAssignment/commits/e6499a24f288ef7601e8f64cf2308ded1b1adc71\"},\"protected\":false},{\"name\":\"media_type_conf\",\"commit\":{\"sha\":\"595e512e3b8fe7ae09ed771e42292aa37cd4b90e\",\"url\":\"https://api.github.com/repos/AlexKushin/AtiperaTestAssignment/commits/595e512e3b8fe7ae09ed771e42292aa37cd4b90e\"},\"protected\":false},{\"name\":\"pagination\",\"commit\":{\"sha\":\"6f4e7db35f01c7c5d27315bcd48dd4530e71319f\",\"url\":\"https://api.github.com/repos/AlexKushin/AtiperaTestAssignment/commits/6f4e7db35f01c7c5d27315bcd48dd4530e71319f\"},\"protected\":false},{\"name\":\"pom_main_class_fix\",\"commit\":{\"sha\":\"21a950b60912ab50590dc88ac9fee4058c4a8811\",\"url\":\"https://api.github.com/repos/AlexKushin/AtiperaTestAssignment/commits/21a950b60912ab50590dc88ac9fee4058c4a8811\"},\"protected\":false},{\"name\":\"rate_limit_exception\",\"commit\":{\"sha\":\"374e459400b9a04f4b4f364ae53da38e9d912726\",\"url\":\"https://api.github.com/repos/AlexKushin/AtiperaTestAssignment/commits/374e459400b9a04f4b4f364ae53da38e9d912726\"},\"protected\":false},{\"name\":\"service_improvement\",\"commit\":{\"sha\":\"9ab784f253f9209fe6d56db4c0627b623761bed1\",\"url\":\"https://api.github.com/repos/AlexKushin/AtiperaTestAssignment/commits/9ab784f253f9209fe6d56db4c0627b623761bed1\"},\"protected\":false},{\"name\":\"service\",\"commit\":{\"sha\":\"951ea3e6f083d66acc36ef2a70ce2ac998a0a177\",\"url\":\"https://api.github.com/repos/AlexKushin/AtiperaTestAssignment/commits/951ea3e6f083d66acc36ef2a70ce2ac998a0a177\"},\"protected\":false},{\"name\":\"test\",\"commit\":{\"sha\":\"dfa25cf872241c324dc045cc81c13a407bf83cfe\",\"url\":\"https://api.github.com/repos/AlexKushin/AtiperaTestAssignment/commits/dfa25cf872241c324dc045cc81c13a407bf83cfe\"},\"protected\":false},{\"name\":\"usage_urls_from_response\",\"commit\":{\"sha\":\"7dcb0a658220d7205231d4b51e21cd0e01ad75a5\",\"url\":\"https://api.github.com/repos/AlexKushin/AtiperaTestAssignment/commits/7dcb0a658220d7205231d4b51e21cd0e01ad75a5\"},\"protected\":false}]",
+    "headers" : {
+      "Date" : "Thu, 29 Aug 2024 08:51:23 GMT",
+      "Content-Type" : "application/json; charset=utf-8",
+      "Cache-Control" : "public, max-age=60, s-maxage=60",
+      "Vary" : "Accept,Accept-Encoding, Accept, X-Requested-With",
+      "ETag" : "W/\"e8b2aa6d6435a85730172c148da91b449bf38ac5a24fecd80d5f19677dd2b45a\"",
+      "X-GitHub-Media-Type" : "github.v3; format=json",
+      "x-github-api-version-selected" : "2022-11-28",
+      "Access-Control-Expose-Headers" : "ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset",
+      "Access-Control-Allow-Origin" : "*",
+      "Strict-Transport-Security" : "max-age=31536000; includeSubdomains; preload",
+      "X-Frame-Options" : "deny",
+      "X-Content-Type-Options" : "nosniff",
+      "X-XSS-Protection" : "0",
+      "Referrer-Policy" : "origin-when-cross-origin, strict-origin-when-cross-origin",
+      "Content-Security-Policy" : "default-src 'none'",
+      "Server" : "github.com",
+      "X-RateLimit-Limit" : "60",
+      "X-RateLimit-Remaining" : "57",
+      "X-RateLimit-Reset" : "1724924208",
+      "X-RateLimit-Resource" : "core",
+      "X-RateLimit-Used" : "3",
+      "Accept-Ranges" : "bytes",
+      "X-GitHub-Request-Id" : "474D:345084:24DBF12:25681B7:66D0368B"
+    }
+  },
+  "uuid" : "3e8620d4-b8e1-4edf-be0a-239efccb2554",
+  "persistent" : true,
+  "insertionIndex" : 2
+}
