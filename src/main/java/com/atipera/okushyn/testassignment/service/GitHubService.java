@@ -3,59 +3,87 @@ package com.atipera.okushyn.testassignment.service;
 import com.atipera.okushyn.testassignment.exceptions.ExceededRateLimitException;
 import com.atipera.okushyn.testassignment.exceptions.ResourceNotFoundException;
 import com.atipera.okushyn.testassignment.model.Repository;
-import com.atipera.okushyn.testassignment.model.User;
 import com.atipera.okushyn.testassignment.model.Branch;
 import com.atipera.okushyn.testassignment.model.UserRepoInfo;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatusCode;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
+import org.springframework.web.client.RestClient;
 
-import java.net.URI;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
 public class GitHubService {
 
-    @Value("${github.api.baseUrl}")
-    private String baseUrl;
 
-    @Value("${github.api.getUser}")
-    private String getUserUrl;
+    @Value("${github.api.getRepos}")
+    private String getUserReposUrl;
 
-    private static final String LINK_HEADER = "link";
+    @Value("${github.api.getRepoBranches}")
+    private String getUserRepoBranchesUrl;
 
-    private final RestTemplate restTemplate;
-
-    @Getter
-    private String linkHeader;
+    private final RestClient restClient;
 
 
     @Autowired
-    public GitHubService(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
+    public GitHubService(RestClient restClient) {
+        this.restClient = restClient;
     }
 
 
-    public User getGitHubUser(String username) {
+    public Repository[] getUserRepos(final String username) {
+        String reposUrl = String.format(getUserReposUrl, username);
+        log.info("Fetching repositories for user: {} from URL: {}", username, reposUrl);
+        Repository[] repos = restClient.get()
+                .uri(reposUrl)
+                .retrieve()
+                .body(Repository[].class);
+        if (repos == null || repos.length == 0) {
+            log.info("No repositories found for user: {}", username);
+            return new Repository[0];
+        }
+        log.info("Found {} repositories for user: {}", repos.length, username);
+        return repos;
+    }
+
+    public Branch[] getRepoBranches(final String username, final String repoName) {
+        String reposBranchesUrl = String.format(getUserRepoBranchesUrl, username, repoName);
+        log.info("Fetching branches for repository: {} of user: {} from URL: {}", repoName, username, reposBranchesUrl);
+        Branch[] branches = restClient.get()
+                .uri(reposBranchesUrl)
+                .retrieve()
+                .body(Branch[].class);
+
+        if (branches == null || branches.length == 0) {
+            log.info("No branches found for repository: {} of user: {}", repoName, username);
+            return new Branch[0];
+        }
+        log.info("Found {} branches for repository: {} of user: {}", branches.length, repoName, username);
+        return branches;
+    }
+
+    public List<UserRepoInfo> getUsersRepoInfoList(final String username) {
+        log.info("Fetching repository information for user: {}", username);
         try {
-            log.info("Fetching GitHub user details for username: {}", username);
-            String userUrl = String.format(getUserUrl, baseUrl, username);
-            ResponseEntity<User> userResponseEntity = restTemplate.getForEntity(userUrl, User.class);
-            User user = userResponseEntity.getBody();
+            Repository[] userRepos = getUserRepos(username);
 
-            log.info("Successfully fetched GitHub user: {}", username);
-            log.debug("GitHub user data: {}", user);
+            List<UserRepoInfo> userRepoInfos = Arrays.stream(userRepos).filter(repo -> !repo.fork())
+                    .map(repo -> {
+                        Branch[] branches = getRepoBranches(username, repo.name());
+                        return new UserRepoInfo(repo.name(), username, branches);
+                    })
+                    .collect(Collectors.toList());
 
-            return user;
+            log.info("Successfully fetched repository information for user: {}. Total non fork repositories: {}",
+                    username, userRepoInfos.size());
+
+            return userRepoInfos;
         } catch (HttpClientErrorException ex) {
             log.error("Error fetching GitHub user with username: {}. Status code: {}", username, ex.getStatusCode());
 
@@ -70,64 +98,4 @@ public class GitHubService {
             throw ex;
         }
     }
-
-
-    public Repository[] getUserReposByLogin(int perPage, int page, User user) {
-        String repositoriesUrl = user.getRepos_url();
-        URI uri = UriComponentsBuilder
-                .fromUri(URI.create(repositoriesUrl))
-                .queryParam("per_page", perPage)
-                .queryParam("page", page).build().toUri();
-
-        log.info("Fetching repositories for user: {} with URL: {}", user.getLogin(), uri);
-        ResponseEntity<Repository[]> response = restTemplate.getForEntity(uri, Repository[].class);
-        linkHeader = response.getHeaders().getFirst(LINK_HEADER);
-        log.debug("Link header: {}", linkHeader);
-
-        Repository[] repositories = response.getBody();
-
-
-        if (repositories != null && repositories.length > 0) {
-            log.info("Fetched {} repositories for user {}", repositories.length, user.getLogin());
-            return repositories;
-        } else {
-            log.warn("No repositories found for user {}", user.getLogin());
-            return new Repository[0];
-        }
-    }
-
-
-    public Branch[] getUserRepoBranches(Repository repository) {
-        String branchesUrl = repository.getBranches_url().replace("{/branch}", "");
-        log.info("Fetching branches for repository: {} with URL: {}", repository.getName(), branchesUrl);
-
-        ResponseEntity<Branch[]> branchesResponseEntity = restTemplate.getForEntity(branchesUrl, Branch[].class);
-        Branch[] branches = branchesResponseEntity.getBody();
-        if (branches != null && branches.length > 0) {
-            log.info("Fetched {} branches for repository {}", branches.length, repository.getName());
-            return branches;
-        } else {
-            log.warn("No branches found for repository {}", repository.getName());
-            return new Branch[0];
-        }
-    }
-
-    public List<UserRepoInfo> getNotForkRepoInfoList(Repository[] userRepos, final String login) {
-        log.info("Filtering non-fork repositories for user {}", login);
-         List<UserRepoInfo> notForkRepos = Arrays.stream(userRepos)
-                .filter(rep -> !rep.isFork())
-                .map(rep -> mapToUserRepoInfo(rep, login))
-                .toList();
-        log.debug("Non-fork repositories: {}", notForkRepos);
-         return notForkRepos;
-    }
-
-    private UserRepoInfo mapToUserRepoInfo(final Repository rep, final String login) {
-        String repoName = rep.getName();
-        log.info("Mapping repository {} for user {}", repoName, login);
-        Branch[] brRes = getUserRepoBranches(rep);
-        log.debug("Mapped repository {} with branches {}", repoName, Arrays.toString(brRes));
-        return new UserRepoInfo(repoName, login, brRes);
-    }
-
 }

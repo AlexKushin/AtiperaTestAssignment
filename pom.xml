@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.atipera.okushyn</groupId>
     <artifactId>TestAssignment</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
     <name>AtiperaTestAssignment</name>
     <description>AtiperaTestAssignment</description>
     <properties>
@@ -61,6 +61,25 @@
         <dependency>
             <groupId>com.fasterxml.jackson.dataformat</groupId>
             <artifactId>jackson-dataformat-xml</artifactId>
+        </dependency>
+
+<!-- integrational tests using WireMock and WebTestClient -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.tomakehurst</groupId>
+            <artifactId>wiremock</artifactId>
+            <version>3.0.1</version>
+            <type>pom</type>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-contract-wiremock</artifactId>
+            <version>4.1.4</version>
         </dependency>
     </dependencies>
 

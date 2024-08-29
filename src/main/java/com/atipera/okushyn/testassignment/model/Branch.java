@@ -1,14 +1,5 @@
 package com.atipera.okushyn.testassignment.model;
 
-import lombok.*;
+public record Branch(String name, Commit commit) {
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
-@ToString
-@EqualsAndHashCode
-public class Branch {
-    private String name;
-
-    private Commit commit;
 }

@@ -1,0 +1,40 @@
+{
+  "id" : "6aff5c88-c29e-44d3-b2d0-49fe37de1f92",
+  "name" : "repos_alexkushin_recipebook_branches",
+  "request" : {
+    "url" : "/repos/alexkushin/RecipeBook/branches",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "[{\"name\":\"development\",\"commit\":{\"sha\":\"f33d533cd0b88e5ecb1004639193d4e0c8564f37\",\"url\":\"https://api.github.com/repos/AlexKushin/RecipeBook/commits/f33d533cd0b88e5ecb1004639193d4e0c8564f37\"},\"protected\":false},{\"name\":\"master\",\"commit\":{\"sha\":\"1075bcbf8322578f8f3e43bd1f61568ea690b92b\",\"url\":\"https://api.github.com/repos/AlexKushin/RecipeBook/commits/1075bcbf8322578f8f3e43bd1f61568ea690b92b\"},\"protected\":false},{\"name\":\"ngrx\",\"commit\":{\"sha\":\"566afda4ce62a7e40b15fb748ff5a6c484abc1f6\",\"url\":\"https://api.github.com/repos/AlexKushin/RecipeBook/commits/566afda4ce62a7e40b15fb748ff5a6c484abc1f6\"},\"protected\":false}]",
+    "headers" : {
+      "Date" : "Thu, 29 Aug 2024 08:52:13 GMT",
+      "Content-Type" : "application/json; charset=utf-8",
+      "Cache-Control" : "public, max-age=60, s-maxage=60",
+      "Vary" : "Accept,Accept-Encoding, Accept, X-Requested-With",
+      "ETag" : "W/\"675a95e9f619268796fe87bb3685d7787a45953666a287583256acf692d2281c\"",
+      "X-GitHub-Media-Type" : "github.v3; format=json",
+      "x-github-api-version-selected" : "2022-11-28",
+      "Access-Control-Expose-Headers" : "ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset",
+      "Access-Control-Allow-Origin" : "*",
+      "Strict-Transport-Security" : "max-age=31536000; includeSubdomains; preload",
+      "X-Frame-Options" : "deny",
+      "X-Content-Type-Options" : "nosniff",
+      "X-XSS-Protection" : "0",
+      "Referrer-Policy" : "origin-when-cross-origin, strict-origin-when-cross-origin",
+      "Content-Security-Policy" : "default-src 'none'",
+      "Server" : "github.com",
+      "X-RateLimit-Limit" : "60",
+      "X-RateLimit-Remaining" : "55",
+      "X-RateLimit-Reset" : "1724924208",
+      "X-RateLimit-Resource" : "core",
+      "X-RateLimit-Used" : "5",
+      "Accept-Ranges" : "bytes",
+      "X-GitHub-Request-Id" : "4757:ED66B:260685C:2692E0C:66D036BC"
+    }
+  },
+  "uuid" : "6aff5c88-c29e-44d3-b2d0-49fe37de1f92",
+  "persistent" : true,
+  "insertionIndex" : 4
+}
