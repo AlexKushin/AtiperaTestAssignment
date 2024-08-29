@@ -13,8 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClient;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -36,34 +37,53 @@ public class GitHubService {
     }
 
 
-    public Repository[] getUserRepos(String username) {
-
+    public Repository[] getUserRepos(final String username) {
         String reposUrl = String.format(getUserReposUrl, username);
-        return restClient.get()
+        log.info("Fetching repositories for user: {} from URL: {}", username, reposUrl);
+        Repository[] repos = restClient.get()
                 .uri(reposUrl)
                 .retrieve()
                 .body(Repository[].class);
+        if (repos == null || repos.length == 0) {
+            log.info("No repositories found for user: {}", username);
+            return new Repository[0];
+        }
+        log.info("Found {} repositories for user: {}", repos.length, username);
+        return repos;
     }
 
-    public Branch[] getRepoBranches(String username, String repoName) {
+    public Branch[] getRepoBranches(final String username, final String repoName) {
         String reposBranchesUrl = String.format(getUserRepoBranchesUrl, username, repoName);
-        return restClient.get()
+        log.info("Fetching branches for repository: {} of user: {} from URL: {}", repoName, username, reposBranchesUrl);
+        Branch[] branches = restClient.get()
                 .uri(reposBranchesUrl)
                 .retrieve()
                 .body(Branch[].class);
+
+        if (branches == null || branches.length == 0) {
+            log.info("No branches found for repository: {} of user: {}", repoName, username);
+            return new Branch[0];
+        }
+        log.info("Found {} branches for repository: {} of user: {}", branches.length, repoName, username);
+        return branches;
     }
 
-    public List<UserRepoInfo> getUsersRepoInfoList(String username) {
+    public List<UserRepoInfo> getUsersRepoInfoList(final String username) {
+        log.info("Fetching repository information for user: {}", username);
         try {
             Repository[] userRepos = getUserRepos(username);
-            List<UserRepoInfo> userReposList = new ArrayList<>();
-            for (Repository repo : userRepos) {
-                if (!repo.fork()) {
-                    Branch[] branches = getRepoBranches(username, repo.name());
-                    userReposList.add(new UserRepoInfo(repo.name(), username, branches));
-                }
-            }
-            return userReposList;
+
+            List<UserRepoInfo> userRepoInfos = Arrays.stream(userRepos).filter(repo -> !repo.fork())
+                    .map(repo -> {
+                        Branch[] branches = getRepoBranches(username, repo.name());
+                        return new UserRepoInfo(repo.name(), username, branches);
+                    })
+                    .collect(Collectors.toList());
+
+            log.info("Successfully fetched repository information for user: {}. Total non fork repositories: {}",
+                    username, userRepoInfos.size());
+
+            return userRepoInfos;
         } catch (HttpClientErrorException ex) {
             log.error("Error fetching GitHub user with username: {}. Status code: {}", username, ex.getStatusCode());
 
